@@ -1,10 +1,11 @@
 import { Module } from '@nestjs/common';
-import { JobProviderController } from './job-provider.controller';
+import { ConfigurationModule } from 'libs/configuration/src';
+
+import { JobProviderCommand } from './job-provider.command';
 import { JobProviderService } from './job-provider.service';
 
 @Module({
-  imports: [],
-  controllers: [JobProviderController],
-  providers: [JobProviderService],
+  imports: [ConfigurationModule],
+  providers: [JobProviderService, JobProviderCommand],
 })
 export class JobProviderModule {}

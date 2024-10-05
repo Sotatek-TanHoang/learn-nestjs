@@ -1,8 +1,8 @@
-import { NestFactory } from '@nestjs/core';
+import { CommandFactory } from 'nest-commander';
+
 import { JobProviderModule } from './job-provider.module';
 
 async function bootstrap() {
-  const app = await NestFactory.create(JobProviderModule);
-  await app.listen(3000);
+  await CommandFactory.run(JobProviderModule, ['error', 'warn']);
 }
 bootstrap();

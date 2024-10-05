@@ -1,8 +1,10 @@
 import { Global, Module } from '@nestjs/common';
-import { ConfigModule, ConfigService } from '@nestjs/config';
-
+import { ConfigModule } from '@nestjs/config';
 import * as Joi from 'joi';
+
 import { EEnvironments, EEnvKey } from '../../constants/env.constant';
+import { CustomConfigService } from './custom-config-service.service';
+
 @Global()
 @Module({
   imports: [
@@ -32,7 +34,7 @@ import { EEnvironments, EEnvKey } from '../../constants/env.constant';
       load: [],
     }),
   ],
-  providers: [ConfigService],
-  exports: [ConfigService],
+  providers: [CustomConfigService],
+  exports: [CustomConfigService],
 })
 export class EnvironmentConfigurationModule {}

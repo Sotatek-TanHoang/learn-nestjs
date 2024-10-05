@@ -1,7 +1,8 @@
 import { Module } from '@nestjs/common';
+import { ConfigurationModule } from 'libs/configuration/src';
+
 import { ApiController } from './api.controller';
 import { ApiService } from './api.service';
-import { ConfigurationModule } from 'libs/configuration/src';
 
 @Module({
   imports: [ConfigurationModule],

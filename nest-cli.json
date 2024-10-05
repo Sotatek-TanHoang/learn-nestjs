@@ -49,13 +49,22 @@
         "tsConfigPath": "apps/crawler/tsconfig.app.json"
       }
     },
-    "job-provider": {
+    "@app/job-provider": {
       "type": "application",
       "root": "apps/job-provider",
       "entryFile": "main",
       "sourceRoot": "apps/job-provider/src",
       "compilerOptions": {
         "tsConfigPath": "apps/job-provider/tsconfig.app.json"
+      }
+    },
+    "@app/migration": {
+      "type": "application",
+      "root": "apps/migration",
+      "entryFile": "main",
+      "sourceRoot": "apps/migration/src",
+      "compilerOptions": {
+        "tsConfigPath": "apps/migration/tsconfig.app.json"
       }
     }
   }

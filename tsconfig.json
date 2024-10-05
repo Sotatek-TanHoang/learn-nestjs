@@ -18,9 +18,18 @@
     "forceConsistentCasingInFileNames": false,
     "noFallthroughCasesInSwitch": false,
     "paths": {
-      "@constant/*": ["libs/configuration/src/constants/*"],
-      "@helpers/*": ["libs/configuration/src/helpers/*"],
-      "@shared-modules/*": ["libs/configuration/src/modules/*"]
+      "@constant/*": [
+        "libs/configuration/src/constants/*"
+      ],
+      "@helpers/*": [
+        "libs/configuration/src/helpers/*"
+      ],
+      "@interfaces/*": [
+        "libs/configuration/src/interfaces/*"
+      ],
+      "@shared-modules/*": [
+        "libs/configuration/src/modules/*"
+      ]
     }
   }
 }
