@@ -30,7 +30,20 @@ services:
   crawler:
     image: learn-micoservice:1.0.0
     command: >
-      sh -c "node dist/apps/crawler/main.js"
+      sh -c "node dist/apps/crawler/main.js basic"
+    tty: true
+    restart: always
+    depends_on:
+      - postgres
+      - redis
+      - kafka
+    networks:
+      - myNetwork
+    user: node
+  producer:
+    image: learn-micoservice:1.0.0
+    command: >
+      sh -c "node dist/apps/job-provider/main.js produce"
     tty: true
     restart: always
     depends_on:
@@ -53,17 +66,20 @@ services:
     volumes:
       - zooData:/var/lib/zookeeper/data
       - zooLog:/var/lib/zookeeper/log
-
+    networks: 
+        - myNetwork
   kafka:
     image: confluentinc/cp-kafka:7.3.2
     hostname: kafka1
     container_name: kafka1
+    networks: 
+        - myNetwork
     ports:
       - "9092:9092"
       - "29092:29092"
       - "9999:9999"
     environment:
-      KAFKA_ADVERTISED_LISTENERS: INTERNAL://kafka1:19092,EXTERNAL://${DOCKER_HOST_IP:-127.0.0.1}:9092,DOCKER://host.docker.internal:29092
+      KAFKA_ADVERTISED_LISTENERS: INTERNAL://kafka:19092,EXTERNAL://${DOCKER_HOST_IP:-127.0.0.1}:9092,DOCKER://host.docker.internal:29092
       KAFKA_LISTENER_SECURITY_PROTOCOL_MAP: INTERNAL:PLAINTEXT,EXTERNAL:PLAINTEXT,DOCKER:PLAINTEXT
       KAFKA_INTER_BROKER_LISTENER_NAME: INTERNAL
       KAFKA_ZOOKEEPER_CONNECT: "zoo1:2181"

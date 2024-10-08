@@ -10,6 +10,8 @@ async function bootstrap() {
   const app = await NestFactory.create(ApiModule);
   const config = app.get(CustomConfigService);
   app.useGlobalInterceptors(new ResponseTransformInterceptor(app.get(LoggerService)));
+
+  app.enableShutdownHooks();
   await app.listen(config.get(EEnvKey.PORT), () => {
     console.log(`Server is starting at ${config.get(EEnvKey.PORT)}`);
   });

@@ -9,15 +9,15 @@ interface BasicCommandOptions {
   number?: number;
 }
 
-@Command({ name: 'basic', description: 'A parameter parse' })
+@Command({ name: 'consume', description: 'A parameter parse' })
 export class CrawlerCommand extends CommandRunner {
   constructor(private readonly loggerService: LoggerService, private readonly kafkaService: KafkaService) {
     super();
   }
   private logService = this.loggerService.getLogger('CRAWLER_COMMAND');
   async run(passedParam: string[], options?: BasicCommandOptions): Promise<void> {
-    this.logService.info(passedParam, options);
-    await this.kafkaService.consumeMessages<ITestKafaMessage>('test_topic', async (data: ITestKafaMessage) => {
+    this.logService.info('listen to', passedParam);
+    await this.kafkaService.consumeMessages<ITestKafaMessage>(passedParam, async (data: ITestKafaMessage) => {
       this.logService.info(data);
       return true;
     });

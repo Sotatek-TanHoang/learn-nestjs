@@ -17,8 +17,11 @@ export class JobProviderCommand extends CommandRunner {
   async run(passedParam: string[], options?: BasicCommandOptions): Promise<void> {
     this.logService.info('started', passedParam, options);
     while (true) {
-      await this.kafkaService.sendMessage<ITestKafaMessage>('test_topic', { age: 18, name: 'tanhoangminh' });
-      await sleep(5, 'secs');
+      for (const topic of passedParam) {
+        this.logService.info('sending to', topic);
+        await this.kafkaService.sendMessage<ITestKafaMessage>(topic, { age: 18, name: Date.now().toString() });
+      }
+      await sleep(1, 'secs');
     }
   }
 }
